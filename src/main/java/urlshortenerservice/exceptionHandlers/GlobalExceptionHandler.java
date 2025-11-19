@@ -60,7 +60,7 @@ public class GlobalExceptionHandler {
                 field = Objects.requireNonNull(objectError.getDefaultMessage()).split("\\|")[0];
             }
 
-            if (field.length() > 0) {
+            if (!field.isEmpty()) {
                 updateErrorHashMap(errors, field, objectError.getDefaultMessage().replace(field + "|", ""));
             }
         });

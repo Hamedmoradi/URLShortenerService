@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import urlshortenerservice.domain.HitRateRequest;
 import urlshortenerservice.domain.ShortenRequest;
 import urlshortenerservice.dto.UrlLongRequestDto;
-import urlshortenerservice.exceptions.InvalidUrlException;
 import urlshortenerservice.repository.HitRateRequestRepository;
 import urlshortenerservice.service.URLConverterService;
-import urlshortenerservice.utilities.URLValidator;
 
 import javax.validation.Valid;
 import java.util.Date;
@@ -31,32 +29,25 @@ public class URLController {
 
     @PostMapping(value = "/create-shortener-url")
     public String shortenUrl(@RequestBody @Valid final ShortenRequest shortenRequest) {
-        log.info("Received url to shorten: " + shortenRequest.getLongUrl());
-        String longUrl = shortenRequest.getLongUrl();
-        if (URLValidator.INSTANCE.validateURL(longUrl)) {
-            String shortenedUrl = urlConverterService.convertToShortUrl(
+            return urlConverterService.convertToShortUrl(
                     UrlLongRequestDto
                             .builder()
-                            .longUrl(longUrl)
+                            .longUrl(shortenRequest.getLongUrl())
                             .expiresDate(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(2)))
                             .build());
-            log.info("Shortened url to: " + shortenedUrl);
-            return shortenedUrl;
-        }
-        throw new InvalidUrlException("Please enter a valid URL");
     }
 
 
-    //@ApiOperation(value = "Redirect", notes = "Finds original url from short url and redirects")
+//    @ApiOperation(value = "Redirect", notes = "Finds original url from short url and redirects")
     @CachePut(value = "hitRateRequests", key = "#p0")
     @GetMapping(value = "{shortUrl}")
     public String getAndRedirect(@PathVariable String shortUrl) {
         var url = urlConverterService.getOriginalUrl(shortUrl);
         if (url != null) {
-            log.info("URL is " + url);
+            log.info("URL is {}", url);
             ValueOperations<String, String> valueOps = redisTemplate.opsForValue();
             Long rate = valueOps.increment(url.getLongUrl());
-            log.info("THE RATE OF  " + shortUrl + " (SHORT-URL) IS : " + rate);
+            log.info("THE RATE OF  {} (SHORT-URL) IS : {}", shortUrl, rate);
             hitRateRequestRepository.save(HitRateRequest.builder().hitRate(rate).shorterUrl(shortUrl).id(url.getId()).build());
             return "redirect to " + url.getLongUrl() + " successful";
 

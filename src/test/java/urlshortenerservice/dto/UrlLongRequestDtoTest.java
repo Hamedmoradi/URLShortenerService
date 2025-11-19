@@ -12,7 +12,7 @@ class UrlLongRequestDtoTest {
 
     @BeforeEach
     void setUp() {
-        urlLongRequestDtoUnderTest = new UrlLongRequestDto(15L, "http://googlecom",
+        urlLongRequestDtoUnderTest = new UrlLongRequestDto(15L, "http://google.com",
                 new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
     }
 

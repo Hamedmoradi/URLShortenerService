@@ -11,7 +11,7 @@ import java.util.Map;
 @Getter
 @Accessors(chain = true)
 public class InvalidDataResponse {
-    private Map<String, Map<String, List<String>>> data;
+    private final Map<String, Map<String, List<String>>> data;
 
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public InvalidDataResponse(@JsonProperty("data") Map<String, Map<String, List<String>>> data) {

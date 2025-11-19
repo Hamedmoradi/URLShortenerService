@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,15 +16,12 @@ import java.util.Date;
 @Setter
 @Accessors(chain = true)
 @Builder
-//@ApiModel(description = "Request object for POST method")
 public class UrlLongRequestDto implements Serializable {
 
     private Long id;
 
-    //    @ApiModelProperty(required = true, notes = "Url to convert to short")
     private String longUrl;
 
-    //    @ApiModelProperty(notes = "Expiration datetime of url")
     private Date expiresDate;
 
 
