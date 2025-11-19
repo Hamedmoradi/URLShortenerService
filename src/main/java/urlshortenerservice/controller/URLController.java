@@ -1,6 +1,7 @@
 package urlshortenerservice.controller;
 
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CachePut;
@@ -13,7 +14,6 @@ import urlshortenerservice.dto.UrlLongRequestDto;
 import urlshortenerservice.repository.HitRateRequestRepository;
 import urlshortenerservice.service.URLConverterService;
 
-import javax.validation.Valid;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 

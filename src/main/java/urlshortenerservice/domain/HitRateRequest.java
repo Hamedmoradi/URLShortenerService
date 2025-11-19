@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity(name = "HIT_RATE_REQUEST")
 @Data
@@ -19,6 +17,7 @@ public class HitRateRequest {
     private Long id;
 
     private Long hitRate;
+
     private String shorterUrl;
 
 }

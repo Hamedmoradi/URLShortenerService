@@ -1,5 +1,6 @@
 package urlshortenerservice.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -13,7 +14,6 @@ import urlshortenerservice.repository.ShortenRequestRepository;
 import urlshortenerservice.utilities.URLConvertor;
 import urlshortenerservice.utilities.URLValidator;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 

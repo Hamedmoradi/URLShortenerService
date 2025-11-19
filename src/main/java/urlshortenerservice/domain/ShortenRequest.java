@@ -1,12 +1,12 @@
 package urlshortenerservice.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.util.Date;
 
 @Entity(name = "SHORTEN_REQUEST_URL")
